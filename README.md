@@ -2,12 +2,6 @@
 
 This repository contains a minimal Django project configured to use PostgreSQL and Redis.
 
-## Features
-
-- **Curriculum management** with time tracking and progress percentages.
-- **Session counting and invoicing** to automate billing.
-- **Monthly parent reports** can be generated from lesson data.
-- **Make-up scheduling and attendance** tracking per lesson.
 
 ## Prerequisites
 
@@ -66,7 +60,6 @@ This repository contains a minimal Django project configured to use PostgreSQL a
 
    ```bash
    python manage.py migrate
-   python manage.py createsuperuser  # create admin user
    python manage.py runserver
    ```
 
