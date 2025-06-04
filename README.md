@@ -2,6 +2,7 @@
 
 This repository contains a minimal Django project configured to use PostgreSQL and Redis.
 
+
 ## Prerequisites
 
 - Python 3.12+
