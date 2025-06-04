@@ -63,7 +63,9 @@ This repository contains a minimal Django project configured to use PostgreSQL a
    python manage.py runserver
    ```
 
-Visit `http://127.0.0.1:8000/` to see the default Django page.
+Visit `http://127.0.0.1:8000/` to see the LMS app's index page. You
+should see a simple `LMS backend is running` message, confirming that the
+backend is active.
 
 ## Requirements File
 
