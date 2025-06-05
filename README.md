@@ -63,7 +63,10 @@ This repository contains a minimal Django project configured to use PostgreSQL a
    python manage.py runserver
    ```
 
+
+Windows users can run `setup_windows.ps1` to perform the above steps automatically.
 Visit `http://127.0.0.1:8000/` to see the default Django page.
+Swagger documentation is available at `http://127.0.0.1:8000/swagger/`.
 
 ## Requirements File
 
@@ -72,6 +75,8 @@ Visit `http://127.0.0.1:8000/` to see the default Django page.
 - Django
 - psycopg2-binary (PostgreSQL driver)
 - django-redis
+- djangorestframework
+- drf-yasg (Swagger UI)
 
 Install them with `pip install -r requirements.txt` as shown above.
 

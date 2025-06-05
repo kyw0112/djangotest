@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>LMS API Overview</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>LMS API Overview</h1>
+    <p>This page summarizes the available API endpoints. See <a href="/swagger/">Swagger UI</a> for interactive documentation.</p>
+    <table>
+        <thead>
+            <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>POST</td><td>/api/auth/signup</td><td>Create teacher account</td></tr>
+            <tr><td>POST</td><td>/api/auth/login</td><td>Login</td></tr>
+            <tr><td>GET</td><td>/api/auth/me</td><td>Current user info</td></tr>
+            <tr><td>PATCH</td><td>/api/auth/settings</td><td>Update teacher settings</td></tr>
+            <tr><td>POST</td><td>/api/students/</td><td>Create student</td></tr>
+            <tr><td>GET</td><td>/api/students/</td><td>List students</td></tr>
+            <tr><td>GET</td><td>/api/students/&lt;id&gt;</td><td>Retrieve student</td></tr>
+            <tr><td>PATCH</td><td>/api/students/&lt;id&gt;</td><td>Update student</td></tr>
+            <tr><td>DELETE</td><td>/api/students/&lt;id&gt;</td><td>Delete student</td></tr>
+            <tr><td>POST</td><td>/api/curriculum/</td><td>Create curriculum</td></tr>
+            <tr><td>GET</td><td>/api/curriculum/&lt;student_id&gt;</td><td>Curriculum by student</td></tr>
+            <tr><td>PATCH</td><td>/api/curriculum/detail/&lt;id&gt;</td><td>Update curriculum</td></tr>
+            <tr><td>PATCH</td><td>/api/progress/&lt;id&gt;</td><td>Record progress</td></tr>
+            <tr><td>POST</td><td>/api/session/record</td><td>Record lesson</td></tr>
+            <tr><td>GET</td><td>/api/session/calendar?student_id=</td><td>View calendar</td></tr>
+            <tr><td>GET</td><td>/api/invoice/preview?student_id=</td><td>Preview invoice</td></tr>
+            <tr><td>POST</td><td>/api/invoice/send</td><td>Send invoice</td></tr>
+            <tr><td>GET</td><td>/api/invoice/history</td><td>Invoice history</td></tr>
+            <tr><td>PATCH</td><td>/api/invoice/&lt;id&gt;</td><td>Update invoice</td></tr>
+            <tr><td>POST</td><td>/api/report/generate</td><td>Generate report</td></tr>
+            <tr><td>PATCH</td><td>/api/report/&lt;id&gt;</td><td>Update report</td></tr>
+            <tr><td>POST</td><td>/api/report/send</td><td>Send report</td></tr>
+            <tr><td>GET</td><td>/api/report/history?student_id=</td><td>Report history</td></tr>
+            <tr><td>GET</td><td>/api/notifications/todo</td><td>Todo notifications</td></tr>
+        </tbody>
+    </table>
+</body>
+</html>
