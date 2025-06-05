@@ -1,10 +1,13 @@
 import json
+
 from django.shortcuts import render
+
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+
 
 from .models import Attendance, Curriculum, Invoice, Lesson, Student
 
@@ -52,7 +55,9 @@ def me(request):
 
 @csrf_exempt
 @login_required
+
 def update_settings(request):
+
     """Update basic teacher settings."""
     if request.method != "PATCH":
         return JsonResponse({"detail": "Method not allowed"}, status=405)

@@ -7,7 +7,9 @@ urlpatterns = [
     path("auth/signup", views.signup),
     path("auth/login", views.login_view),
     path("auth/me", views.me),
+
     path("auth/settings", views.update_settings),
+
 
     path("students/", views.students_collection),
     path("students/<int:id>", views.student_detail),
