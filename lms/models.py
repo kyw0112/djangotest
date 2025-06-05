@@ -1,8 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Student(models.Model):
+    teacher = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="students", null=True
+    )
     name = models.CharField(max_length=100)
+    contact = models.CharField(max_length=50, blank=True)
+    class_name = models.CharField(max_length=100, blank=True)
     parent_email = models.EmailField(blank=True)
 
     def __str__(self):
@@ -10,7 +16,11 @@ class Student(models.Model):
 
 
 class Curriculum(models.Model):
+    student = models.ForeignKey(
+        Student, on_delete=models.CASCADE, related_name="curriculums", null=True
+    )
     title = models.CharField(max_length=200)
+    target_mastery = models.PositiveIntegerField(default=0)
     description = models.TextField(blank=True)
 
     def __str__(self):
@@ -40,7 +50,7 @@ class Attendance(models.Model):
 
 
 class Invoice(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
     month = models.DateField(help_text="First day of month")
     sessions = models.PositiveIntegerField()
     amount = models.DecimalField(max_digits=8, decimal_places=2)
