@@ -1,97 +1,102 @@
-import json
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
 
-from django.shortcuts import render
+@api_view(["POST"])
+@permission_classes([AllowAny])
+    data = request.data or {}
+        return Response({"detail": "username and password required"}, status=400)
+        return Response({"detail": "User exists"}, status=400)
+    return Response({"id": user.id, "username": user.username})
 
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-
-
-from .models import Attendance, Curriculum, Invoice, Lesson, Student
-
-def index(request):
-    return render(request, "lms/index.html")
-
-
-
-@csrf_exempt
-def signup(request):
-    """Create a new user."""
-    if request.method != "POST":
-        return JsonResponse({"detail": "Method not allowed"}, status=405)
-
-    data = json.loads(request.body or "{}")
-    username = data.get("username")
-    password = data.get("password")
-    if not username or not password:
-        return JsonResponse({"detail": "username and password required"}, status=400)
-    if User.objects.filter(username=username).exists():
-        return JsonResponse({"detail": "User exists"}, status=400)
-    user = User.objects.create_user(username=username, password=password)
-    return JsonResponse({"id": user.id, "username": user.username})
-
-
-@csrf_exempt
-def login_view(request):
-    """Authenticate and login a user."""
-    if request.method != "POST":
-        return JsonResponse({"detail": "Method not allowed"}, status=405)
-    data = json.loads(request.body or "{}")
-    user = authenticate(request, username=data.get("username"), password=data.get("password"))
-    if user is None:
-        return JsonResponse({"detail": "Invalid credentials"}, status=400)
-    login(request, user)
-    return JsonResponse({"detail": "logged in"})
-
-
-@login_required
-def me(request):
-    """Return current user info."""
-    user = request.user
-    return JsonResponse({"id": user.id, "username": user.username})
-
-
-@csrf_exempt
-@login_required
-
-def update_settings(request):
-
-    """Update basic teacher settings."""
-    if request.method != "PATCH":
-        return JsonResponse({"detail": "Method not allowed"}, status=405)
-    data = json.loads(request.body or "{}")
-    request.user.first_name = data.get("first_name", request.user.first_name)
-    request.user.last_name = data.get("last_name", request.user.last_name)
-    request.user.save()
-    return JsonResponse({"detail": "updated"})
-
+@api_view(["POST"])
+@permission_classes([AllowAny])
+    data = request.data or {}
+        return Response({"detail": "Invalid credentials"}, status=400)
+    return Response({"detail": "logged in"})
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+    return Response({"id": user.id, "username": user.username})
+@api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
+    data = request.data or {}
+    return Response({"detail": "updated"})
+@api_view(["POST", "GET"])
+@permission_classes([IsAuthenticated])
+        data = request.data or {}
+        return Response({"id": student.id, "name": student.name})
+        return Response({"results": data})
+    return Response({"detail": "Method not allowed"}, status=405)
+@api_view(["GET", "PATCH", "DELETE"])
+@permission_classes([IsAuthenticated])
+        return Response({"detail": "Not found"}, status=404)
+        return Response({"id": student.id, "name": student.name})
+        data = request.data or {}
+        return Response({"detail": "updated"})
+        return Response({"detail": "deleted"})
+    return Response({"detail": "Method not allowed"}, status=405)
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+        data = request.data or {}
+            return Response({"detail": "Student not found"}, status=404)
+        return Response({"id": cur.id, "title": cur.title})
+    return Response({"detail": "Method not allowed"}, status=405)
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+    return Response({"results": data})
+@api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
+        return Response({"detail": "Not found"}, status=404)
+        data = request.data or {}
+        return Response({"detail": "updated"})
+    return Response({"detail": "Method not allowed"}, status=405)
+@api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
+        return Response({"detail": "Not found"}, status=404)
+        data = request.data or {}
+        return Response({"detail": "updated"})
+    return Response({"detail": "Method not allowed"}, status=405)
 
 @csrf_exempt
-@login_required
-def students_collection(request):
-    if request.method == "POST":
-        data = json.loads(request.body or "{}")
-        student = Student.objects.create(
-            teacher=request.user,
-            name=data.get("name", ""),
-            contact=data.get("contact", ""),
-            class_name=data.get("class_name", ""),
-            parent_email=data.get("parent_email", ""),
-        )
-        return JsonResponse({"id": student.id, "name": student.name})
-    elif request.method == "GET":
-        students = Student.objects.filter(teacher=request.user)
-        data = [{"id": s.id, "name": s.name} for s in students]
-        return JsonResponse({"results": data})
-    return JsonResponse({"detail": "Method not allowed"}, status=405)
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+    data = request.data or {}
+        return Response({"detail": "Curriculum not found"}, status=404)
+    return Response({"id": lesson.id})
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+    return Response({"results": data})
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+    return Response({"amount": total})
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+    return Response({"detail": "invoice sent"})
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+    return Response({"results": data})
+@api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
+        return Response({"detail": "Not found"}, status=404)
+        data = request.data or {}
+        return Response({"detail": "updated"})
+    return Response({"detail": "Method not allowed"}, status=405)
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+    return Response({"detail": "report draft created"})
+@api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
+    return Response({"detail": "report updated"})
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+    return Response({"detail": "report sent"})
 
-
-@csrf_exempt
-@login_required
-def student_detail(request, id):
-    try:
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+    return Response({"results": []})
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+    return Response({"todos": []})
         student = Student.objects.get(id=id, teacher=request.user)
     except Student.DoesNotExist:
         return JsonResponse({"detail": "Not found"}, status=404)
